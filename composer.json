@@ -1,0 +1,35 @@
+{
+    "name": "wearemarketing/paylands-php",
+    "description": "Paynopain Paylands service",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "WAM Develop Team",
+            "email": "develop@wearemarketing.com"
+        }
+    ],
+    "require": {
+        "php": "^5.6 || ^7.1",
+        "php-http/client-common": "^1.6",
+        "php-http/discovery": "^1.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7",
+        "php-http/mock-client": "^1.0",
+        "guzzlehttp/psr7": "^1.0"
+    },
+    "suggest": {
+        "guzzlehttp/guzzle": "Implements a required PSR-7 Http client"
+    },
+    "autoload": {
+        "psr-4": {
+            "WAM\\Paylands\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WAM\\Paylands\\Tests\\": "tests/"
+        }
+    }
+}
