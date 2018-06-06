@@ -101,4 +101,33 @@ interface ClientInterface
      * @return array
      */
     public function cancelPayment($orderUuid);
+
+    /**
+     * Requests Paylands API to save a card for a customer
+     *
+     * @param string $customerExtId
+     * @param string $cardHolder
+     * @param string $cardPan
+     * @param string $cardExpiryYear
+     * @param string $cardExpiryMonth
+     * @param string $cardCVV
+     * @param bool $validate
+     * @param string $service
+     * @param string $additional
+     *
+     * @return array
+     *
+     * @throws ErrorException
+     */
+    public function saveCard(
+        $customerExtId,
+        $cardHolder,
+        $cardPan,
+        $cardExpiryYear,
+        $cardExpiryMonth,
+        $cardCVV,
+        $validate = false,
+        $service = '',
+        $additional = ''
+    );
 }

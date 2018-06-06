@@ -18,7 +18,7 @@ use Psr\Http\Message\UriInterface;
 class ClientFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @tests
+     * @test
      */
     public function trySetHttpClient()
     {
@@ -38,7 +38,7 @@ class ClientFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @tests
+     * @test
      */
     public function trySetHttpClientWithDiscovery()
     {
@@ -64,7 +64,7 @@ class ClientFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @tests
+     * @test
      */
     public function trySetUriFactory()
     {
@@ -84,7 +84,7 @@ class ClientFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @tests
+     * @test
      */
     public function trySetUriFactoryWithDiscovery()
     {
@@ -110,7 +110,7 @@ class ClientFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @tests
+     * @test
      */
     public function tryCreteApiClient()
     {

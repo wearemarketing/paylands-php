@@ -45,9 +45,9 @@ class Client implements ClientInterface
     /**
      * Client constructor.
      *
-     * @param HttpClient        $httpClient
+     * @param HttpClient     $httpClient
      * @param RequestFactory $apiRequestFactory
-     * @param bool              $sandbox
+     * @param bool           $sandbox
      */
     public function __construct(HttpClient $httpClient, RequestFactory $apiRequestFactory, $sandbox)
     {
@@ -250,6 +250,50 @@ class Client implements ClientInterface
         $request = $this
             ->apiRequestFactory
             ->createCancelPaymentRequest($orderUuid);
+
+        return $this->send($request);
+    }
+
+    /**
+     * Requests Paylands API to save a card for a customer
+     *
+     * @param string $customerExtId
+     * @param string $cardHolder
+     * @param string $cardPan
+     * @param string $cardExpiryYear
+     * @param string $cardExpiryMonth
+     * @param string $cardCVV
+     * @param bool $validate
+     * @param string $service
+     * @param string $additional
+     *
+     * @return array
+     *
+     * @throws ErrorException
+     */
+    public function saveCard(
+        $customerExtId,
+        $cardHolder,
+        $cardPan,
+        $cardExpiryYear,
+        $cardExpiryMonth,
+        $cardCVV,
+        $validate = false,
+        $service = '',
+        $additional = ''
+    ) {
+        $request = $this
+            ->apiRequestFactory
+            ->createSaveCardRequest($customerExtId,
+                $cardHolder,
+                $cardPan,
+                $cardExpiryYear,
+                $cardExpiryMonth,
+                $cardCVV,
+                $validate,
+                $service,
+                $additional
+            );
 
         return $this->send($request);
     }

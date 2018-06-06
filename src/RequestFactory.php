@@ -30,7 +30,7 @@ class RequestFactory
     /**
      * RequestFactory constructor.
      *
-     * @param string            $apiSignature
+     * @param string         $apiSignature
      * @param DiscoveryProxy $apiDiscoveryProxy
      */
     public function __construct(
@@ -140,8 +140,8 @@ class RequestFactory
         ];
 
         return $this->createRequest('POST', '/payment/refund', [
-            'order_uuid' => $orderUuid,
-        ] + $amountData);
+                'order_uuid' => $orderUuid,
+            ] + $amountData);
     }
 
     /**
@@ -170,6 +170,49 @@ class RequestFactory
         return $this->createRequest('POST', '/payment/cancellation', [
             'order_uuid' => $orderUuid,
         ]);
+    }
+
+    /**
+     * Returns a PSR-7 request to save a credit card into Paylands.
+     *
+     * @param string $customerExtId
+     * @param string $cardHolder
+     * @param string $cardPan
+     * @param string $cardExpiryYear
+     * @param string $cardExpiryMonth
+     * @param string $cardCVV
+     * @param bool   $validate
+     * @param string $service
+     * @param string $additional
+     *
+     * @return RequestInterface
+     */
+    public function createSaveCardRequest(
+        $customerExtId,
+        $cardHolder,
+        $cardPan,
+        $cardExpiryYear,
+        $cardExpiryMonth,
+        $cardCVV,
+        $validate,
+        $service,
+        $additional
+    ) {
+        $validationService = !$validate ? [] : [
+            'service' => $service,
+        ];
+
+        return $this->createRequest('POST', '/payment-method/card', [
+            'customer_ext_id' => $customerExtId,
+            'card_holder' => $cardHolder,
+            'card_pan' => $cardPan,
+            'card_expiry_year' => $cardExpiryYear,
+            'card_expiry_month' => $cardExpiryMonth,
+            'card_cvv' => $cardCVV,
+            'validate' => $validate,
+            'additional' => $additional,
+            'signature' => $this->apiSignature,
+        ] + $validationService);
     }
 
     /**

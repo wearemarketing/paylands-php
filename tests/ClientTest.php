@@ -15,7 +15,7 @@ use WAM\Paylands\RequestFactory;
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @tests
+     * @test
      */
     public function tryIsModeSandboxEnabled()
     {
