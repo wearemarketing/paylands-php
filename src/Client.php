@@ -164,17 +164,22 @@ class Client implements ClientInterface
     /**
      * Requests Paylands API to retrieve tokenized cards of a customer.
      *
-     * @param int $customerExtId Customer external id
+     * @param string $customerExtId Customer external id
+     * @param string $status        Card status filter = ['VALIDATED', 'ALL']
+     * @param string $unique        Whether return just one instance of the same card or every payment done with it
      *
      * @return array
      *
      * @throws ErrorException
      */
-    public function retrieveCustomerCards($customerExtId)
-    {
+    public function retrieveCustomerCards(
+        $customerExtId,
+        $status = ClientInterface::CARD_STATUS_VALIDATED,
+        $unique = ClientInterface::CARD_UNIQUE
+    ) {
         $request = $this
             ->apiRequestFactory
-            ->createCustomerCardsRequest($customerExtId);
+            ->createCustomerCardsRequest($customerExtId, $status, $unique);
 
         return $this->send($request);
     }
@@ -255,7 +260,7 @@ class Client implements ClientInterface
     }
 
     /**
-     * Requests Paylands API to save a card for a customer
+     * Requests Paylands API to save a card for a customer.
      *
      * @param string $customerExtId
      * @param string $cardHolder
@@ -263,7 +268,7 @@ class Client implements ClientInterface
      * @param string $cardExpiryYear
      * @param string $cardExpiryMonth
      * @param string $cardCVV
-     * @param bool $validate
+     * @param bool   $validate
      * @param string $service
      * @param string $additional
      *

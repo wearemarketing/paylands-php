@@ -98,13 +98,17 @@ class RequestFactory
     /**
      * Returns a PSR-7 request to retrieve customer's cards from Paylands.
      *
-     * @param $customerExtId
+     * @param string $customerExtId
+     * @param string $status
+     * @param string $unique
      *
      * @return RequestInterface
      */
-    public function createCustomerCardsRequest($customerExtId)
+    public function createCustomerCardsRequest($customerExtId, $status, $unique)
     {
-        return $this->createRequest('GET', sprintf('/customer/%s/cards', $customerExtId));
+        $resource = sprintf('/customer/%s/cards?status=%s&unique=%s', $customerExtId, $status, $unique);
+
+        return $this->createRequest('GET', $resource);
     }
 
     /**

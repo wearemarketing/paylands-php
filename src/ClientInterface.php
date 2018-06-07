@@ -11,6 +11,14 @@ interface ClientInterface
 {
     const OPERATIVE_AUTHORIZATION = 'AUTHORIZATION';
     const OPERATIVE_DEFERRED = 'DEFERRED';
+    const OPERATIVE_REFUND = 'REFUND';
+    const OPERATIVE_CONFIRMATION = 'CONFIRMATION';
+    const OPERATIVE_CANCELLATION = 'CANCELLATION';
+
+    const CARD_STATUS_VALIDATED = 'VALIDATED';
+    const CARD_STATUS_ALL = 'ALL';
+    const CARD_UNIQUE = 'true';
+    const CARD_NOT_UNIQUE = 'false';
 
     /**
      * Gets if client is in sandbox mode.
@@ -45,11 +53,13 @@ interface ClientInterface
     /**
      * Requests Paylands API to retrieve tokenized cards of a customer.
      *
-     * @param int $customerExtId Customer external id
+     * @param string $customerExtId Customer external id
+     * @param string $status
+     * @param string $unique
      *
      * @return array
      */
-    public function retrieveCustomerCards($customerExtId);
+    public function retrieveCustomerCards($customerExtId, $status, $unique);
 
     /**
      * Requests Paylands API to create a new payment order.
@@ -103,7 +113,7 @@ interface ClientInterface
     public function cancelPayment($orderUuid);
 
     /**
-     * Requests Paylands API to save a card for a customer
+     * Requests Paylands API to save a card for a customer.
      *
      * @param string $customerExtId
      * @param string $cardHolder
@@ -111,13 +121,11 @@ interface ClientInterface
      * @param string $cardExpiryYear
      * @param string $cardExpiryMonth
      * @param string $cardCVV
-     * @param bool $validate
+     * @param bool   $validate
      * @param string $service
      * @param string $additional
      *
      * @return array
-     *
-     * @throws ErrorException
      */
     public function saveCard(
         $customerExtId,

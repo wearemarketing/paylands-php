@@ -1,6 +1,6 @@
 <?php
 
-namespace WAM\Paylands\Tests;
+namespace WAM\Paylands\Tests\Unit;
 
 use Http\Message\RequestFactory as HttpRequestFactory;
 use WAM\Paylands\DiscoveryProxy;
@@ -139,7 +139,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $data = [
             'method' => 'GET',
-            'resource' => '/customer/123A/cards',
+            'resource' => '/customer/123A/cards?status=ALL&unique=true',
             'body' => [],
         ];
 
@@ -158,7 +158,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 
         $request = $apiRequestFactory
             ->setRequestFactory()
-            ->createCustomerCardsRequest('123A');
+            ->createCustomerCardsRequest('123A', 'ALL', 'true');
 
         $this->assertSame($request, $requestMock->reveal());
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace WAM\Paylands\Tests;
+namespace WAM\Paylands\Tests\Unit;
 
 use Http\Message\UriFactory;
 use Http\Mock\Client;
