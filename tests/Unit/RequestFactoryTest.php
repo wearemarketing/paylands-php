@@ -1,6 +1,6 @@
 <?php
 
-namespace WAM\Paylands\Tests;
+namespace WAM\Paylands\Tests\Unit;
 
 use Http\Message\RequestFactory as HttpRequestFactory;
 use WAM\Paylands\DiscoveryProxy;
@@ -15,7 +15,7 @@ use Psr\Http\Message\RequestInterface;
 class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @tests
+     * @test
      */
     public function trySetRequestFactory()
     {
@@ -32,7 +32,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @tests
+     * @test
      */
     public function trySetRequestFactoryWithDiscovery()
     {
@@ -55,7 +55,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @tests
+     * @test
      */
     public function tryCreatePaymentRequest()
     {
@@ -99,7 +99,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @tests
+     * @test
      */
     public function tryCreateCustomerRequest()
     {
@@ -133,13 +133,13 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @tests
+     * @test
      */
     public function tryCreateCustomerCardsRequest()
     {
         $data = [
             'method' => 'GET',
-            'resource' => '/customer/123A/cards',
+            'resource' => '/customer/123A/cards?status=ALL&unique=true',
             'body' => [],
         ];
 
@@ -158,13 +158,13 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 
         $request = $apiRequestFactory
             ->setRequestFactory()
-            ->createCustomerCardsRequest('123A');
+            ->createCustomerCardsRequest('123A', 'ALL', 'true');
 
         $this->assertSame($request, $requestMock->reveal());
     }
 
     /**
-     * @tests
+     * @test
      */
     public function tryCreateDirectPaymentRequest()
     {
@@ -204,7 +204,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @tests
+     * @test
      */
     public function tryCreateCancelPaymentRequest()
     {
@@ -238,7 +238,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @tests
+     * @test
      */
     public function tryCreateConfirmPaymentRequest()
     {
@@ -272,7 +272,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @tests
+     * @test
      */
     public function tryCreateTotalRefundPaymentRequest()
     {
@@ -306,7 +306,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @tests
+     * @test
      */
     public function tryCreatePartialRefundPaymentRequest()
     {
@@ -336,6 +336,107 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $request = $apiRequestFactory
             ->setRequestFactory()
             ->createRefundPaymentRequest($data['body']['order_uuid'], $data['body']['amount']);
+
+        $this->assertSame($request, $requestMock->reveal());
+    }
+
+    /**
+     * @test
+     */
+    public function tryCreateSaveCardRequest() {
+        $data = [
+            'method' => 'POST',
+            'resource' => '/payment-method/card',
+            'body' => [
+                'customer_ext_id' => '123',
+                'card_holder' => 'Jonh Doe',
+                'card_pan' => '4111111111111111',
+                'card_expiry_year' => '12',
+                'card_expiry_month' => '12',
+                'card_cvv' => '123',
+                'validate' => true,
+                'additional' => 'additional info for this card',
+                'signature' => 'secret-signature',
+                'service' => 'uuid-of-the-validation-service',
+            ],
+        ];
+
+        $requestMock = $this->prophesize(RequestInterface::class);
+
+        $requestFactoryMock = $this->getRequestFactoryMock($requestMock->reveal(), $data);
+
+        $apiDiscoveryProxyMock = $this->getApiDiscoveryProxyMock($requestFactoryMock->reveal());
+
+        $apiRequestFactory = new RequestFactory(
+            $apiDiscoveryProxyMock->reveal(),
+            $data['body']['signature']
+        );
+
+        $apiRequestFactory->setRequestFactory();
+
+        $request = $apiRequestFactory
+            ->setRequestFactory()
+            ->createSaveCardRequest(
+                $data['body']['customer_ext_id'],
+                $data['body']['card_holder'],
+                $data['body']['card_pan'],
+                $data['body']['card_expiry_year'],
+                $data['body']['card_expiry_month'],
+                $data['body']['card_cvv'],
+                $data['body']['validate'],
+                $data['body']['service'],
+                $data['body']['additional']
+            );
+
+        $this->assertSame($request, $requestMock->reveal());
+    }
+
+    /**
+     * @test
+     */
+    public function tryCreateSaveCardDisableValidateRequest() {
+        $data = [
+            'method' => 'POST',
+            'resource' => '/payment-method/card',
+            'body' => [
+                'customer_ext_id' => '123',
+                'card_holder' => 'Jonh Doe',
+                'card_pan' => '4111111111111111',
+                'card_expiry_year' => '12',
+                'card_expiry_month' => '12',
+                'card_cvv' => '123',
+                'validate' => false,
+                'additional' => 'additional info for this card',
+                'signature' => 'secret-signature',
+            ],
+        ];
+
+        $requestMock = $this->prophesize(RequestInterface::class);
+
+        $requestFactoryMock = $this->getRequestFactoryMock($requestMock->reveal(), $data);
+
+        $apiDiscoveryProxyMock = $this->getApiDiscoveryProxyMock($requestFactoryMock->reveal());
+
+        $apiRequestFactory = new RequestFactory(
+            $apiDiscoveryProxyMock->reveal(),
+            $data['body']['signature']
+        );
+
+        $apiRequestFactory->setRequestFactory();
+
+        $request = $apiRequestFactory
+            ->setRequestFactory()
+            ->createSaveCardRequest(
+                $data['body']['customer_ext_id'],
+                $data['body']['card_holder'],
+                $data['body']['card_pan'],
+                $data['body']['card_expiry_year'],
+                $data['body']['card_expiry_month'],
+                $data['body']['card_cvv'],
+                $data['body']['validate'],
+                '',
+                $data['body']['additional']
+            );
 
         $this->assertSame($request, $requestMock->reveal());
     }

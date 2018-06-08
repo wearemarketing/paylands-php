@@ -1,6 +1,6 @@
 <?php
 
-namespace WAM\Paylands\Tests;
+namespace WAM\Paylands\Tests\Unit;
 
 use Http\Message\ResponseFactory;
 use Http\Mock\Client as HttpClient;
@@ -15,7 +15,7 @@ use WAM\Paylands\RequestFactory;
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @tests
+     * @test
      */
     public function tryIsModeSandboxEnabled()
     {

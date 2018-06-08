@@ -26,4 +26,13 @@
         </whitelist>
     </filter>
 
+    <php>
+        <env name="API_KEY" value="api-key"/>
+        <env name="API_URL" value="https://api.paylands.com/v1/sandbox"/>
+        <env name="API_SANDBOX" value="true"/>
+        <env name="API_SIGNATURE" value="api-signature"/>
+        <env name="API_PAYMENT_SERVICE" value="api-service"/>
+        <env name="ENABLE_API_INTEGRATION" value="false"/>
+    </php>
+
 </phpunit>
