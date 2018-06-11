@@ -65,7 +65,7 @@ abstract class ClientBaseTestCase extends \PHPUnit_Framework_TestCase
 
     public function expectException($exception)
     {
-        if (method_exists('\PHPUnit_Framework_TestCase', 'expectedException')) {
+        if (method_exists('\PHPUnit_Framework_TestCase', 'expectException')) {
             parent::expectException($exception);
         }
 
