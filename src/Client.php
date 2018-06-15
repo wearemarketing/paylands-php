@@ -23,11 +23,6 @@ class Client implements ClientInterface
     protected $apiRequestFactory;
 
     /**
-     * @var bool
-     */
-    protected $sandbox;
-
-    /**
      * @var string
      */
     protected $operative = ClientInterface::OPERATIVE_AUTHORIZATION;
@@ -45,25 +40,13 @@ class Client implements ClientInterface
     /**
      * Client constructor.
      *
-     * @param HttpClient     $httpClient
+     * @param HttpClient $httpClient
      * @param RequestFactory $apiRequestFactory
-     * @param bool           $sandbox
      */
-    public function __construct(HttpClient $httpClient, RequestFactory $apiRequestFactory, $sandbox)
+    public function __construct(HttpClient $httpClient, RequestFactory $apiRequestFactory)
     {
         $this->httpClient = $httpClient;
         $this->apiRequestFactory = $apiRequestFactory;
-        $this->sandbox = $sandbox;
-    }
-
-    /**
-     * Gets if client is in sandbox mode.
-     *
-     * @return bool
-     */
-    public function isModeSandboxEnabled()
-    {
-        return $this->sandbox;
     }
 
     /**

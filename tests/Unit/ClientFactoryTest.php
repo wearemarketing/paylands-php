@@ -23,11 +23,7 @@ class ClientFactoryTest extends \PHPUnit_Framework_TestCase
     public function trySetHttpClient()
     {
         $apiClientFactory = new ClientFactoryTestClass(
-            $this->prophesize(RequestFactory::class)->reveal(),
-            $this->prophesize(DiscoveryProxy::class)->reveal(),
-            'api-key',
-            'api-url',
-            false
+            $this->prophesize(RequestFactory::class)->reveal(), $this->prophesize(DiscoveryProxy::class)->reveal(), 'api-key', 'api-url'
         );
 
         $httpClientMock = $this->prophesize(Client::class);
@@ -51,11 +47,7 @@ class ClientFactoryTest extends \PHPUnit_Framework_TestCase
             ->willReturn($httpClientMock->reveal());
 
         $apiClientFactory = new ClientFactoryTestClass(
-            $this->prophesize(RequestFactory::class)->reveal(),
-            $apiDiscoveryProxyMock->reveal(),
-            'api-key',
-            'api-url',
-            false
+            $this->prophesize(RequestFactory::class)->reveal(), $apiDiscoveryProxyMock->reveal(), 'api-key', 'api-url'
         );
 
         $apiClientFactory->setHttpClient();
@@ -69,11 +61,7 @@ class ClientFactoryTest extends \PHPUnit_Framework_TestCase
     public function trySetUriFactory()
     {
         $apiClientFactory = new ClientFactoryTestClass(
-            $this->prophesize(RequestFactory::class)->reveal(),
-            $this->prophesize(DiscoveryProxy::class)->reveal(),
-            'api-key',
-            'api-url',
-            false
+            $this->prophesize(RequestFactory::class)->reveal(), $this->prophesize(DiscoveryProxy::class)->reveal(), 'api-key', 'api-url'
         );
 
         $uriFactoryMock = $this->prophesize(UriFactory::class);
@@ -97,11 +85,7 @@ class ClientFactoryTest extends \PHPUnit_Framework_TestCase
             ->willReturn($uriFactoryMock->reveal());
 
         $apiClientFactory = new ClientFactoryTestClass(
-            $this->prophesize(RequestFactory::class)->reveal(),
-            $apiDiscoveryProxyMock->reveal(),
-            'api-key',
-            'api-url',
-            false
+            $this->prophesize(RequestFactory::class)->reveal(), $apiDiscoveryProxyMock->reveal(), 'api-key', 'api-url'
         );
 
         $apiClientFactory->setUriFactory();
@@ -115,11 +99,7 @@ class ClientFactoryTest extends \PHPUnit_Framework_TestCase
     public function tryCreteApiClient()
     {
         $apiClientFactory = new ClientFactoryTestClass(
-            $this->prophesize(RequestFactory::class)->reveal(),
-            $this->prophesize(DiscoveryProxy::class)->reveal(),
-            'api-key',
-            'api-url',
-            false
+            $this->prophesize(RequestFactory::class)->reveal(), $this->prophesize(DiscoveryProxy::class)->reveal(), 'api-key', 'api-url'
         );
 
         $uriFactoryMock = $this->prophesize(UriFactory::class);

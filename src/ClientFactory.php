@@ -29,11 +29,6 @@ class ClientFactory
     private $api_url;
 
     /**
-     * @var bool
-     */
-    private $sandbox;
-
-    /**
      * @var RequestFactory
      */
     private $apiRequestFactory;
@@ -58,22 +53,19 @@ class ClientFactory
      *
      * @param RequestFactory $apiRequestFactory
      * @param DiscoveryProxy $apiDiscoveryProxy
-     * @param string            $api_key
-     * @param string            $api_url
-     * @param bool              $sandbox
+     * @param string $api_key
+     * @param string $api_url
      */
     public function __construct(
         RequestFactory $apiRequestFactory,
         DiscoveryProxy $apiDiscoveryProxy,
         $api_key,
-        $api_url,
-        $sandbox)
-    {
+        $api_url
+    ) {
         $this->apiRequestFactory = $apiRequestFactory;
         $this->apiDiscoveryProxy = $apiDiscoveryProxy;
         $this->api_key = $api_key;
         $this->api_url = $api_url;
-        $this->sandbox = $sandbox;
     }
 
     /**
@@ -122,6 +114,6 @@ class ClientFactory
             new ContentTypePlugin(),
         ]);
 
-        return new Client($pluginClient, $this->apiRequestFactory, (bool) $this->sandbox);
+        return new Client($pluginClient, $this->apiRequestFactory);
     }
 }

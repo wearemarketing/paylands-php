@@ -46,11 +46,7 @@ abstract class ClientBaseTestCase extends \PHPUnit_Framework_TestCase
         $apiRequestFactory->setRequestFactory();
 
         $clientFactory = new ClientFactory(
-            $apiRequestFactory,
-            $apiDiscoveryProxy,
-            getenv('API_KEY'),
-            getenv('API_URL'),
-            $apiSandboxMode
+            $apiRequestFactory, $apiDiscoveryProxy, getenv('API_KEY'), getenv('API_URL')
         );
 
         $clientFactory->setUriFactory();
