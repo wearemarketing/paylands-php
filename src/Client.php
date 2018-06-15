@@ -175,7 +175,7 @@ class Client implements ClientInterface
     public function retrieveCustomerCards(
         $customerExtId,
         $status = ClientInterface::CARD_STATUS_VALIDATED,
-        $unique = ClientInterface::CARD_UNIQUE
+        $unique = ClientInterface::CARD_NOT_UNIQUE
     ) {
         $request = $this
             ->apiRequestFactory
