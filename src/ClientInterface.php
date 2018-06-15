@@ -21,13 +21,6 @@ interface ClientInterface
     const CARD_NOT_UNIQUE = 'false';
 
     /**
-     * Gets if client is in sandbox mode.
-     *
-     * @return bool
-     */
-    public function isModeSandboxEnabled();
-
-    /**
      * Gets current client's operative.
      *
      * @return string
