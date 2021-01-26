@@ -12,7 +12,7 @@ class ClientSaveCardTest extends ClientBaseTestCase
             $this->customerExternalId,
             'Jonh Doe',
             '4548812049400004',
-            '20',
+            '30',
             '12',
             '987'
         );
@@ -24,7 +24,7 @@ class ClientSaveCardTest extends ClientBaseTestCase
         $this->assertEquals('454881', $card['Source']['bin']);
         $this->assertEquals('0004', $card['Source']['last4']);
         $this->assertSame('12', $card['Source']['expire_month']);
-        $this->assertSame('20', $card['Source']['expire_year']);
+        $this->assertSame('30', $card['Source']['expire_year']);
         $this->assertNotEmpty($card['Source']['uuid']);
     }
 
@@ -34,7 +34,7 @@ class ClientSaveCardTest extends ClientBaseTestCase
             $this->customerExternalId,
             'Jonh Doe',
             '4548812049400004',
-            '20',
+            '30',
             '12',
             '987',
             true,
@@ -48,7 +48,7 @@ class ClientSaveCardTest extends ClientBaseTestCase
         $this->assertEquals('454881', $card['Source']['bin']);
         $this->assertEquals('0004', $card['Source']['last4']);
         $this->assertSame('12', $card['Source']['expire_month']);
-        $this->assertSame('20', $card['Source']['expire_year']);
+        $this->assertSame('30', $card['Source']['expire_year']);
         $this->assertNotEmpty($card['Source']['uuid']);
     }
 }

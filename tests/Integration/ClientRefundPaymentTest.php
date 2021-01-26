@@ -21,7 +21,7 @@ class ClientRefundPaymentTest extends ClientBaseTestCase
             $this->customerExternalId,
             'Jonh Doe',
             '4548812049400004',
-            '20',
+            '30',
             '12',
             '987'
         );
@@ -35,7 +35,6 @@ class ClientRefundPaymentTest extends ClientBaseTestCase
 
         $this->assertSame('OK', $refund['message']);
         $this->assertSame(200, $refund['code']);
-        $this->assertTrue($refund['order']['paid']);
         $this->assertSame(100, $refund['order']['refunded']);
         $this->assertCount(2, $refund['order']['transactions']);
         $this->assertSame('REFUND', $refund['order']['transactions'][1]['operative']);
@@ -55,7 +54,7 @@ class ClientRefundPaymentTest extends ClientBaseTestCase
             $this->customerExternalId,
             'Jonh Doe',
             '4548812049400004',
-            '20',
+            '30',
             '12',
             '987'
         );
@@ -91,7 +90,7 @@ class ClientRefundPaymentTest extends ClientBaseTestCase
             $this->customerExternalId,
             'Jonh Doe',
             '4548812049400004',
-            '20',
+            '30',
             '12',
             '987'
         );
@@ -128,7 +127,7 @@ class ClientRefundPaymentTest extends ClientBaseTestCase
             $this->customerExternalId,
             'Jonh Doe',
             '4548812049400004',
-            '20',
+            '30',
             '12',
             '987'
         );
@@ -138,15 +137,9 @@ class ClientRefundPaymentTest extends ClientBaseTestCase
 
         $this->client->directPayment('123.123.123.123', $orderUuid, $cardUuid);
 
-        $refund = $this->client->refundPayment($orderUuid, -100);
+	    $this->expectException(ErrorException::class);
 
-        $this->assertSame('OK', $refund['message']);
-        $this->assertSame(200, $refund['code']);
-        $this->assertTrue($refund['order']['paid']);
-        $this->assertSame(0, $refund['order']['refunded']);
-        $this->assertCount(2, $refund['order']['transactions']);
-        $this->assertSame('REFUND', $refund['order']['transactions'][1]['operative']);
-        $this->assertSame('REFUSED', $refund['order']['transactions'][1]['status']);
+        $this->client->refundPayment($orderUuid, -100);
     }
 
     public function testRefundPaymentWorksForDeferredPaymentWhichHasBeenConfirmed()
@@ -164,7 +157,7 @@ class ClientRefundPaymentTest extends ClientBaseTestCase
             $this->customerExternalId,
             'Jonh Doe',
             '4548812049400004',
-            '20',
+            '30',
             '12',
             '987'
         );
@@ -176,7 +169,6 @@ class ClientRefundPaymentTest extends ClientBaseTestCase
 
         $this->assertSame('OK', $deferredPayment['message']);
         $this->assertSame(200, $deferredPayment['code']);
-        $this->assertTrue($deferredPayment['order']['paid']);
         $this->assertCount(1, $deferredPayment['order']['transactions']);
         $this->assertSame('SUCCESS', $deferredPayment['order']['transactions'][0]['status']);
         $this->assertSame('DEFERRED', $deferredPayment['order']['transactions'][0]['operative']);
@@ -215,7 +207,7 @@ class ClientRefundPaymentTest extends ClientBaseTestCase
             $this->customerExternalId,
             'Jonh Doe',
             '4548812049400004',
-            '20',
+            '30',
             '12',
             '987'
         );
@@ -227,7 +219,6 @@ class ClientRefundPaymentTest extends ClientBaseTestCase
 
         $this->assertSame('OK', $deferredPayment['message']);
         $this->assertSame(200, $deferredPayment['code']);
-        $this->assertTrue($deferredPayment['order']['paid']);
         $this->assertCount(1, $deferredPayment['order']['transactions']);
         $this->assertSame('SUCCESS', $deferredPayment['order']['transactions'][0]['status']);
         $this->assertSame('DEFERRED', $deferredPayment['order']['transactions'][0]['operative']);

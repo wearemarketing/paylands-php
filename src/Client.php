@@ -39,9 +39,6 @@ class Client implements ClientInterface
 
     /**
      * Client constructor.
-     *
-     * @param HttpClient $httpClient
-     * @param RequestFactory $apiRequestFactory
      */
     public function __construct(HttpClient $httpClient, RequestFactory $apiRequestFactory)
     {
@@ -77,7 +74,6 @@ class Client implements ClientInterface
      * Sets defined template uuids to use to capture card by locale, and sets the fallback one.
      *
      * @param array $fallback
-     * @param array $i18n
      */
     public function setTemplates($fallback, array $i18n)
     {
@@ -112,16 +108,17 @@ class Client implements ClientInterface
      * @param int    $amount
      * @param string $description
      * @param string $service
+     * @param array  $extraData
      *
      * @return array
      *
      * @throws ErrorException
      */
-    public function createPayment($customerExtId, $amount, $description, $service)
+    public function createPayment($customerExtId, $amount, $description, $service, $extraData = [])
     {
         $request = $this
             ->apiRequestFactory
-            ->createPaymentRequest($customerExtId, $amount, $description, $this->getOperative(), $service);
+            ->createPaymentRequest($customerExtId, $amount, $description, $this->getOperative(), $service, $extraData);
 
         return $this->send($request);
     }
@@ -287,8 +284,6 @@ class Client implements ClientInterface
     }
 
     /**
-     * @param RequestInterface $request
-     *
      * @return array
      *
      * @throws ErrorException
