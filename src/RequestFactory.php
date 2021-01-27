@@ -30,8 +30,7 @@ class RequestFactory
     /**
      * RequestFactory constructor.
      *
-     * @param string         $apiSignature
-     * @param DiscoveryProxy $apiDiscoveryProxy
+     * @param string $apiSignature
      */
     public function __construct(
         DiscoveryProxy $apiDiscoveryProxy,
@@ -67,18 +66,25 @@ class RequestFactory
      * @param $description
      * @param $operative
      * @param $service
+     * @param $extraData
      *
      * @return RequestInterface
      */
-    public function createPaymentRequest($customerExtId, $amount, $description, $operative, $service)
+    public function createPaymentRequest($customerExtId, $amount, $description, $operative, $service, $extraData = [])
     {
-        return $this->createRequest('POST', '/payment', [
+        $data = [
             'customer_ext_id' => (string) $customerExtId,
             'amount' => $amount,
             'operative' => $operative,
             'service' => $service,
             'description' => $description,
-        ]);
+        ];
+
+        if (!empty($extraData)) {
+            $data['extra_data'] = $extraData;
+        }
+
+        return $this->createRequest('POST', '/payment', $data);
     }
 
     /**
@@ -239,8 +245,6 @@ class RequestFactory
 
     /**
      * Encodes request body data as expected JSON.
-     *
-     * @param array $data
      *
      * @return string
      */

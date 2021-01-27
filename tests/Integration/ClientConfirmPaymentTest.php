@@ -27,7 +27,7 @@ class ClientConfirmPaymentTest extends ClientBaseTestCase
             $this->customerExternalId,
             'Jonh Doe',
             '4548812049400004',
-            '20',
+            '30',
             '12',
             '987'
         );
@@ -39,7 +39,6 @@ class ClientConfirmPaymentTest extends ClientBaseTestCase
 
         $this->assertSame('OK', $deferredPayment['message']);
         $this->assertSame(200, $deferredPayment['code']);
-        $this->assertTrue($deferredPayment['order']['paid']);
         $this->assertCount(1, $deferredPayment['order']['transactions']);
         $this->assertSame('SUCCESS', $deferredPayment['order']['transactions'][0]['status']);
         $this->assertSame('DEFERRED', $deferredPayment['order']['transactions'][0]['operative']);

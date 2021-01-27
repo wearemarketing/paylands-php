@@ -12,7 +12,7 @@ class ClientRetrieveCustomerCardsTest extends ClientBaseTestCase
             $this->customerExternalId,
             'Jonh Doe',
             '4548812049400004',
-            '20',
+            '30',
             '12',
             '987',
             true,
@@ -23,7 +23,7 @@ class ClientRetrieveCustomerCardsTest extends ClientBaseTestCase
             $this->customerExternalId,
             'Antonio Garcia',
             '4548812049400004',
-            '20',
+            '30',
             '12',
             '987',
             true,
@@ -34,7 +34,7 @@ class ClientRetrieveCustomerCardsTest extends ClientBaseTestCase
             $this->customerExternalId,
             'Kevin Spacy',
             '4111111111111111',
-            '20',
+            '30',
             '12',
             '987'
         );
