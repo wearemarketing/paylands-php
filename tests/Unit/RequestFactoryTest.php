@@ -93,7 +93,6 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
                 $data['body']['description'],
                 $data['body']['operative'],
                 $data['body']['service'],
-                $data['body']['url_post']
             );
 
         $this->assertSame($request, $requestMock->reveal());
