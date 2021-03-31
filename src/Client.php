@@ -114,11 +114,11 @@ class Client implements ClientInterface
      *
      * @throws ErrorException
      */
-    public function createPayment($customerExtId, $amount, $description, $service, $extraData = [])
+    public function createPayment($customerExtId, $amount, $description, $service, $url_post = null, $extraData = [])
     {
         $request = $this
             ->apiRequestFactory
-            ->createPaymentRequest($customerExtId, $amount, $description, $this->getOperative(), $service, $extraData);
+            ->createPaymentRequest($customerExtId, $amount, $description, $this->getOperative(), $service, $url_post, $extraData);
 
         return $this->send($request);
     }

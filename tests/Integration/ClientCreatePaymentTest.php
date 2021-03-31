@@ -14,7 +14,7 @@ class ClientCreatePaymentTest extends ClientBaseTestCase
             'Test payment order',
             $this->apiPaymentServiceId
         );
-
+        var_dump($payment);
         $this->assertSame('OK', $payment['message']);
         $this->assertSame(200, $payment['code']);
         $this->assertFalse($payment['order']['paid']);
