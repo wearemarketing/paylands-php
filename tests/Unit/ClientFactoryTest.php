@@ -101,12 +101,21 @@ class ClientFactoryTest extends \PHPUnit_Framework_TestCase
         $apiClientFactory = new ClientFactoryTestClass(
             $this->prophesize(RequestFactory::class)->reveal(), $this->prophesize(DiscoveryProxy::class)->reveal(), 'api-key', 'api-url'
         );
+        $uriMock = $this->prophesize(UriInterface::class);
+        $uriMock
+            ->getPath()
+            ->shouldBeCalled()
+            ->willReturn("api-url");
+        $uriMock
+            ->getHost()
+            ->shouldBeCalled()
+            ->willReturn("host");
 
         $uriFactoryMock = $this->prophesize(UriFactory::class);
         $uriFactoryMock
             ->createUri('api-url')
             ->shouldBeCalled()
-            ->willReturn($this->prophesize(UriInterface::class)->reveal());
+            ->willReturn($uriMock->reveal());
 
         $httpClientMock = $this->prophesize(Client::class);
 

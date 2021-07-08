@@ -65,7 +65,9 @@ interface ClientInterface
      *
      * @return array
      */
-    public function createPayment($customerExtId, $amount, $description, $service, $extraData = []);
+    public function createPayment($customerExtId, $amount, $description, $service, $url_post = null,  $extraData = []);
+
+
 
     /**
      * Requests Paylands API to pay a previously created order.
